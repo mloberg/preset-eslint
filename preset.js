@@ -4,6 +4,7 @@ module.exports = Preset.make('preset-eslint')
     .option('typescript', false)
 
     .editJson('package.json')
+        .title('Install ESLint & Prettier')
         .merge({
             scripts: {
                 lint: 'eslint . --ext .js',
@@ -20,6 +21,7 @@ module.exports = Preset.make('preset-eslint')
         .chain()
 
     .editJson('package.json')
+        .title('Install ESLint TypeScript dependencies')
         .merge({
             scripts: {
                 lint: 'eslint . --ext .js --ext .ts',
@@ -34,14 +36,16 @@ module.exports = Preset.make('preset-eslint')
         .chain()
 
     .copyDirectory('default')
+        .title('Copy ESLint config')
         .to('/')
-        .whenConflict('override')
+        .whenConflict('ask')
         .chain()
 
     .copyDirectory('typescript')
         .to('/')
         .if(({ flags }) => Boolean(flags.typescript))
         .whenConflict('override')
+        .title('Copy ESLint TypeScript config')
         .chain()
 
     .installDependencies();
