@@ -5,6 +5,10 @@ module.exports = Preset.make('preset-eslint')
 
     .editJson('package.json')
         .merge({
+            scripts: {
+                lint: 'eslint . --ext .js',
+                fix: 'npm run lint -- --fix',
+            },
             devDependencies: {
                 'eslint': '^7.7.0',
                 'eslint-config-prettier': '^6.11.0',
@@ -18,7 +22,7 @@ module.exports = Preset.make('preset-eslint')
     .editJson('package.json')
         .merge({
             scripts: {
-                lint: 'eslint . --ext .js',
+                lint: 'eslint . --ext .js --ext .ts',
                 fix: 'npm run lint -- --fix',
             },
             devDependencies: {
